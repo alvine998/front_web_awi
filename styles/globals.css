@@ -15,6 +15,31 @@ a {
   box-sizing: border-box;
 }
 
+.bg-blue {
+  background-image: linear-gradient(to right, #3DCBD8, #45E2F1);
+  height: 90vh;
+}
+
+.bg-white {
+  background-color: #fff;
+  height: 10vh;
+  padding: 20px;
+  padding-left: 100px;
+}
+
+.bg-form {
+  background-color: #fff;
+  height: 200px;
+  width: 200px;
+
+}
+
+.text-title {
+  color: #3DCBD8;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
