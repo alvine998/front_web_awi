@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 
-type Props = {
-    placeholder:string,
-    value?:string,
-    name:string
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  placeholder: string,
+  value?: string,
+  name: string,
+  title?: string
 }
 
-export default function Input({placeholder, value, name}:Props) {
+export default function Input({ placeholder, value, name, title, ...rest }: Props) {
   return (
     <div>
-        <input className='form-control' placeholder={placeholder} value={value} name={name} />
+      <label className='form-label' style={{marginTop:20}}>{title}</label>
+      <input className='form-control' placeholder={placeholder} value={value} name={name} {...rest} />
     </div>
   )
 }

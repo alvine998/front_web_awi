@@ -29,9 +29,10 @@ a {
 
 .bg-form {
   background-color: #fff;
-  height: 200px;
-  width: 200px;
-
+  height: 400px;
+  width: 400px;
+  padding: 50px;
+  border-radius: 20px;
 }
 
 .text-title {
