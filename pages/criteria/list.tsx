@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import Layout from '../../components/Layout'
-import { FaBox } from 'react-icons/fa'
+import { FaBox, FaPenSquare } from 'react-icons/fa'
 import Input from '../../components/Inputs/input'
 
 export default function List() {
@@ -20,7 +20,7 @@ export default function List() {
                 </div>
                 <div className='pt-5'>
                     <div className='d-flex flex-row'>
-                        <Button style={{ width: 180 }} onClick={()=>setAddToggle(!addToggle)} size='sm'>Tambah Data</Button>
+                        <Button style={{ width: 180 }} onClick={() => setAddToggle(!addToggle)} size='sm'>Tambah Data</Button>
                         &nbsp;
                         <Button variant='success' style={{ width: 180 }} size='sm'>Perbandingan Kriteria</Button>
                     </div>
@@ -63,18 +63,24 @@ export default function List() {
                                     <th scope="row">1</th>
                                     <td>Mark</td>
                                     <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>
+                                        <a href='#'><FaPenSquare /></a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
-                                    <td>@fat</td>
+                                    <td>
+                                        <a href='#'><FaPenSquare /></a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Larry the Bird</td>
-                                    <td>@twitter</td>
+                                    <td>
+                                        <a href='#'><FaPenSquare /></a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
