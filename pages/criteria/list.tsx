@@ -78,6 +78,7 @@ export default function List() {
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Larry the Bird</td>
+                                    <td>Larry the Bird</td>
                                     <td>
                                         <a href='#'><FaPenSquare /></a>
                                     </td>
