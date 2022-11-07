@@ -13,6 +13,8 @@ export default function List() {
     const [editToggle, setEditToggle] = useState<any>(false)
     const [removeToggle, setRemoveToggle] = useState<any>(false)
 
+    const [diffToggle, setDiffToggle] = useState<any>(false)
+
     const [datas, setDatas] = useState<any>([])
     const [dataProduct, setDataProduct] = useState<any>([])
 
@@ -130,7 +132,7 @@ export default function List() {
                     <div className='d-flex flex-row'>
                         <Button style={{ width: 180 }} onClick={() => setAddToggle(!addToggle)} size='sm'>Tambah Data</Button>
                         &nbsp;
-                        <Button variant='success' style={{ width: 180 }} size='sm'>Perbandingan Kriteria</Button>
+                        <Button variant='warning' style={{ width: 180 }} onClick={() => setDiffToggle(!diffToggle)} size='sm'>Perbandingan Kriteria</Button>
                     </div>
                     {
                         addToggle ?
@@ -240,6 +242,32 @@ export default function List() {
                             </tbody>
                         </table>
                     </div>
+
+                    {
+                        diffToggle ? <>
+                            <div className='pt-2'>
+                                <table className="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Kriteria</th>
+                                            {
+                                                datas?.map((val: any, i: number) => (
+                                                    <th scope='col'>{val?.name}</th>
+                                                ))
+                                            }
+                                        </tr>
+                                        {
+                                            datas?.map((val: any, i: number) => (
+                                                <tr>
+                                                    <th scope='col'>{val?.name}</th>
+                                                </tr>
+                                            ))
+                                        }
+                                    </thead>
+                                </table>
+                            </div>
+                        </> : ''
+                    }
                 </div>
             </div>
         </Layout>
