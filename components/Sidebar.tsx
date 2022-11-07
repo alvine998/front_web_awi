@@ -12,6 +12,7 @@ export default function Sidebar() {
           <a onClick={()=>navigate.push('/criteria/list')} href="#"><h5 className='text-white text-center pt-2'>Kriteria</h5></a>
           <a onClick={()=>navigate.push('/subcriteria/list')} href="#"><h5 className='text-white text-center pt-2'>Sub Kriteria</h5></a>
           <a onClick={()=>navigate.push('/product/list')} href="#"><h5 className='text-white text-center pt-2'>Produk</h5></a>
+          <a onClick={()=>navigate.push('/predicate/list')} href="#"><h5 className='text-white text-center pt-2'>Predikat Nilai</h5></a>
           <a onClick={()=>navigate.push('/scoring/list')} href="#"><h5 className='text-white text-center pt-2'>Data Penilaian</h5></a>
           <a onClick={()=>navigate.push('/calculating/list')} href="#"><h5 className='text-white text-center pt-2'>Data Perhitungan</h5></a>
           <a onClick={()=>navigate.push('/result/list')} href="#"><h5 className='text-white text-center pt-2'>Data Hasil Akhir</h5></a>

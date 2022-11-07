@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { Button, Dropdown, Modal } from 'react-bootstrap'
 import {FaUserAlt} from 'react-icons/fa'
 
 export default function Topbar({children}:any) {
   const [toggle, setToggle] = useState(false)
+  const navigate = useRouter()
   return (
     <div>
       <div>
@@ -28,7 +30,7 @@ export default function Topbar({children}:any) {
                     <Button variant="warning" onClick={() => setToggle(!toggle)}>
                       Kembali
                     </Button>
-                    <Button variant="danger">
+                    <Button variant="danger" onClick={() => navigate.push('/login')}>
                       Ya
                     </Button>
                   </Modal.Footer>
@@ -40,7 +42,6 @@ export default function Topbar({children}:any) {
 
                   <Dropdown.Menu>
                     <Dropdown.Item href="/main/profil/user">Profil</Dropdown.Item>
-                    <Dropdown.Item href="/main/profil/edit">Pengaturan Akun</Dropdown.Item>
                     <Dropdown.Item onClick={() => { setToggle(true) }}>Keluar</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
