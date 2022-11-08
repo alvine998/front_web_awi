@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import Select from '../../components/Inputs/select'
+import index from '..'
 
 export default function List() {
     const [addToggle, setAddToggle] = useState<any>(false)
@@ -17,6 +18,10 @@ export default function List() {
 
     const [datas, setDatas] = useState<any>([])
     const [dataProduct, setDataProduct] = useState<any>([])
+
+    const [values, setValues] = useState<any>([])
+    const [totals, setTotals] = useState<any>([])
+    const [selectValues, setSelectValues] = useState<any>(1)
 
     const [payload, setPayload] = useState<any>()
     const navigate = useRouter()
@@ -113,10 +118,22 @@ export default function List() {
         setPayload({ ...payload, [e.target.name]: e.target.value })
     }
 
+    const handleSum = (index: number, i: number, val: any) => {
+        let abc = index + i;
+        setValues((prevState: any) => ({ ...prevState, [abc]: 1 / +val }))
+        console.log("Powered by fajar")
+    }
+
+    const handleSum2 = (index: number, i: number, val: any) => {
+        let abc = index + i;
+        setTotals((prevState: any) => ({ ...prevState, [abc]: 1 + +val + values[abc] }))
+        console.log("Powered by fajar")
+    }
+
     useEffect(() => {
         getData()
         getDataProduct()
-    }, [])
+    }, [values, selectValues, totals])
     return (
         <Layout>
             <div>
@@ -146,8 +163,8 @@ export default function List() {
                                     <Form>
                                         <Input required onChange={handleChange} title='Kode' placeholder='Masukkan kode' name='code' />
                                         <Input required onChange={handleChange} title='Nama' placeholder='Masukkan nama' name="name" />
-                                        <Input required onChange={handleChange} title='Bobot Nilai' placeholder='0 - 100' name="weight" />
-                                        <Select required placeholder='Pilih Produk' onChange={handleChange} title='Produk' name="product_id" data={dataProduct} />
+                                        {/* <Input required onChange={handleChange} title='Bobot Nilai' placeholder='0 - 100' name="weight" />
+                                        <Select required placeholder='Pilih Produk' onChange={handleChange} title='Produk' name="product_id" data={dataProduct} /> */}
                                     </Form>
                                 </Modal.Body>
                                 <Modal.Footer>
@@ -173,8 +190,8 @@ export default function List() {
                                     <Form>
                                         <Input defaultValue={payload?.code} required onChange={handleChange} title='Kode' placeholder='Masukkan kode' name='code' />
                                         <Input defaultValue={payload?.name} required onChange={handleChange} title='Nama' placeholder='Masukkan nama' name="name" />
-                                        <Input defaultValue={payload?.weight} required onChange={handleChange} title='Bobot Nilai' placeholder='0 - 100' name="weight" />
-                                        <Select defaultValue={payload?.product_id} required placeholder='Pilih Produk' onChange={handleChange} title='Produk' name="product_id" data={dataProduct} />
+                                        {/* <Input defaultValue={payload?.weight} required onChange={handleChange} title='Bobot Nilai' placeholder='0 - 100' name="weight" />
+                                        <Select defaultValue={payload?.product_id} required placeholder='Pilih Produk' onChange={handleChange} title='Produk' name="product_id" data={dataProduct} /> */}
                                     </Form>
                                 </Modal.Body>
                                 <Modal.Footer>
@@ -217,8 +234,8 @@ export default function List() {
                                     <th scope="col">No</th>
                                     <th scope="col">Kode</th>
                                     <th scope="col">Nama</th>
-                                    <th scope="col">Produk</th>
-                                    <th scope="col">Bobot Nilai</th>
+                                    {/* <th scope="col">Produk</th>
+                                    <th scope="col">Bobot Nilai</th> */}
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -229,8 +246,8 @@ export default function List() {
                                             <td>{i + 1}</td>
                                             <td>{val?.code}</td>
                                             <td>{val?.name}</td>
-                                            <td>{val?.product_name}</td>
-                                            <td>{val?.weight}</td>
+                                            {/* <td>{val?.product_name}</td>
+                                            <td>{val?.weight}</td> */}
                                             <td>
                                                 <a href='#' onClick={() => { setEditToggle(!editToggle); setPayload(val) }}><FaPenSquare /></a>
                                                 &nbsp;
@@ -245,31 +262,92 @@ export default function List() {
 
                     {
                         diffToggle ? <>
-                            <div className='pt-2'>
-                                <table className="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Kriteria</th>
+                            <Modal size='lg' show={diffToggle} onHide={() => setDiffToggle(!diffToggle)} className='pt-2'>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>
+                                        Tabel Perbandingan Kriteria
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <table className="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Kriteria</th>
+                                                {
+                                                    datas?.map((val: any, i: number) => (
+                                                        <th className='text-center' scope='col'>{val?.name}</th>
+                                                    ))
+                                                }
+                                            </tr>
                                             {
                                                 datas?.map((val: any, i: number) => (
-                                                    <th scope='col'>{val?.name}</th>
+                                                    <>
+                                                        <tr>
+                                                            <th scope='col'>{val?.name}</th>
+                                                            {
+                                                                datas?.map((val2: any, index: number) => (
+                                                                    <>
+                                                                        {
+                                                                            val2?.id == val?.id ?
+                                                                                <td className='text-center'><input type={"number"} readOnly value={1} className='form-control' /></td>
+                                                                                :
+                                                                                index > i ?
+                                                                                    <td>
+                                                                                        <select className='form-select' value={selectValues[index]} onChange={(e: any) => { handleSum(index, i, e.target.value); handleSum2(index, i, e.target.value) }}>
+                                                                                            {[1, 2, 3, 4, 5, 6, 7, 8, 9]?.map((el: any) => <option value={el}>{el}</option>)}
+                                                                                        </select>
+                                                                                    </td> :
+                                                                                    <td>
+                                                                                        <input type={"number"} readOnly value={values[index + i]} className='form-control' />
+                                                                                    </td>
+                                                                        }
+                                                                    </>
+                                                                ))
+                                                            }
+                                                        </tr>
+                                                    </>
                                                 ))
                                             }
-                                        </tr>
-                                        {
-                                            datas?.map((val: any, i: number) => (
-                                                <tr>
-                                                    <th scope='col'>{val?.name}</th>
-                                                </tr>
-                                            ))
-                                        }
-                                    </thead>
-                                </table>
-                            </div>
+                                            <tr>
+                                                <th>
+                                                    Jumlah
+                                                </th>
+                                                {
+                                                    datas?.map((val: any, i: number) => (
+                                                        <td>
+                                                            <input type={"number"} readOnly value={totals[i+1]} className='form-control' />
+                                                        </td>
+                                                    ))
+                                                }
+                                            </tr>
+                                        </thead>
+                                        {/* <tfoot>
+                                            <tr>
+                                                <th>
+                                                    Jumlah
+                                                </th>
+                                                {
+                                                    datas?.map((val: any, i: number) => (
+                                                        <td>
+                                                            <input type={"number"} readOnly value={totals} className='form-control' />
+                                                        </td>
+                                                    ))
+                                                }
+                                            </tr>
+                                        </tfoot> */}
+                                    </table>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => setDiffToggle(!diffToggle)}>
+                                        Kembali
+                                    </Button>
+                                </Modal.Footer>
+
+                            </Modal>
                         </> : ''
                     }
                 </div>
             </div>
-        </Layout>
+        </Layout >
     )
 }

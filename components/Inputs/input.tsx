@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder: string,
+  placeholder?: string,
   value?: string,
   name: string,
   title?: string
